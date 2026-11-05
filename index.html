@@ -947,85 +947,49 @@
     });
   });
 
-  // ---------- Birthday tune (original heroic spider theme) ----------
+  // ---------- Birthday tune (random MP3, always looping) ----------
   const btn = document.getElementById("playTune");
-  let audioCtx;
+  let tuneAudio = null;
   let isPlaying = false;
-  let loopTimeout;
 
-  const MELODY = [
-    // "Spi-der-Man," (Part 1)
-    { f: 294, ms: 180 }, // D4 
-    { f: 349, ms: 180 }, // F4 
-    { f: 440, ms: 360 }, // A4 
-    { f: 349, ms: 360 }, // F4 
-    
-    // "Spi-der-Man," (Part 2)
-    { f: 294, ms: 180 }, // D4 
-    { f: 349, ms: 180 }, // F4 
-    { f: 440, ms: 360 }, // A4 
-    { f: 349, ms: 540 }, // F4 (Hold slightly longer)
+  const audioFiles = (C.audioFiles && C.audioFiles.length)
+    ? C.audioFiles
+    : (C.audioFile ? [C.audioFile] : []);
 
-    // "Does what-ev-er a spi-der can!"
-    { f: 349, ms: 180 }, // F4
-    { f: 349, ms: 180 }, // F4
-    { f: 329, ms: 180 }, // E4
-    { f: 349, ms: 180 }, // F4
-    { f: 329, ms: 180 }, // E4
-    { f: 311, ms: 180 }, // D#4
-    { f: 294, ms: 180 }, // D4
-    { f: 262, ms: 700 }  // C4 (The deep resolution drop)
-  ];
-
-  // Calculate the total track time dynamically (including your note gap padding)
-  const totalTrackMs = MELODY.reduce(function (a, b) { 
-    return a + b.ms + 40; // b.ms plus the 0.04s (40ms) spacing gap
-  }, 0);
-
-  function scheduleMelodyCycle() {
-    if (!isPlaying) return;
-
-    let t = audioCtx.currentTime;
-    
-    MELODY.forEach(function (note) {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      
-      osc.type = "sawtooth";
-      osc.frequency.setValueAtTime(note.f, t);
-      
-      gain.gain.setValueAtTime(0.05, t);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + note.ms / 1000);
-      
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      
-      osc.start(t);
-      osc.stop(t + note.ms / 1000);
-      
-      t += note.ms / 1000 + 0.04;
-    });
-
-    // Recursively schedule the next loop exactly when the current loop finishes
-    loopTimeout = setTimeout(scheduleMelodyCycle, totalTrackMs);
+  function pickRandomTrack() {
+    if (audioFiles.length === 0) return null;
+    return audioFiles[Math.floor(Math.random() * audioFiles.length)];
   }
 
   function toggleTune() {
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    audioCtx.resume();
-
     if (isPlaying) {
-      // STOP PLAYING
+      // STOP
       isPlaying = false;
-      clearTimeout(loopTimeout);
+      if (tuneAudio) {
+        tuneAudio.pause();
+        tuneAudio.src = "";
+        tuneAudio.load();
+        tuneAudio = null;
+      }
       btn.innerHTML = "Play birthday tune &rsaquo;";
     } else {
-      // START PLAYING
+      // START
+      const src = pickRandomTrack();
+      if (!src) {
+        btn.innerHTML = "No music files added";
+        setTimeout(function () { btn.innerHTML = "Play birthday tune &rsaquo;"; }, 1500);
+        return;
+      }
       isPlaying = true;
-      btn.innerHTML = "Stop theme loop &squ;";
-      scheduleMelodyCycle();
+      tuneAudio = new Audio(src);
+      tuneAudio.loop = true;
+      tuneAudio.play().catch(function (err) {
+        isPlaying = false;
+        tuneAudio = null;
+        btn.innerHTML = "Could not play: " + src.split("/").pop();
+        setTimeout(function () { btn.innerHTML = "Play birthday tune &rsaquo;"; }, 2000);
+      });
+      btn.innerHTML = "Stop tune &squ;";
     }
   }
 

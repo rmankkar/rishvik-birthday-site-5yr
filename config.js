@@ -17,7 +17,12 @@ window.BDAY_CONFIG = {
     "assets/images/gallery/photo5.jpg",
     "assets/images/gallery/photo6.jpg"
   ],
-  audioFile: "assets/audio/birthday.mp3",   // drop an MP3 here; a built-in tune plays until then
+  audioFile: "assets/audio/spiderman_1.mp3",   // drop MP3s here; a built-in tune plays until then
+  audioFiles: [                              // list multiple MP3s; a random one plays on each click
+    "assets/audio/spiderman_1.mp3",
+    "assets/audio/spiderman_2.mp3",
+    "assets/audio/spiderman_3.mp3"
+  ],
   supabase: {
     url: "https://YOUR_PROJECT_REF.supabase.co",   // <-- paste your Supabase project URL
     anonKey: "YOUR_PUBLIC_ANON_KEY",                // <-- paste your Supabase public anon key
