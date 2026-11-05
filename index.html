@@ -17,6 +17,9 @@
     --panel: #ffffff;
     --font-display: Bangers, system-ui, sans-serif;
     --font-body: Nunito, system-ui, sans-serif;
+    /* Miles Morales / Spider-Verse accent colors (supplement existing palette) */
+    --miles-black: #0a0a0a;
+    --miles-glow: rgba(237, 28, 36, 0.25);
   }
 
   * { box-sizing: border-box; }
@@ -122,6 +125,14 @@
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-12px); }
+  }
+  .miles-spider {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 48px;
+    height: 48px;
+    animation: float 4s ease-in-out infinite 1s;
   }
 
   section { padding-block: 26px; }
@@ -229,6 +240,8 @@
     box-shadow: 7px 7px 0 var(--ink);
   }
   .gallery-card img { width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer; }
+  .gallery-card:nth-child(even) { transform: rotate(-1deg); }
+  .gallery-card:nth-child(odd) { transform: rotate(1deg); }
   .gallery-card figcaption {
     margin-top: 10px;
     font-family: var(--font-display);
@@ -405,6 +418,7 @@
   .tune button:focus-visible { outline: 5px solid var(--yellow); outline-offset: 3px; }
   .tune button:hover { opacity: 0.92; }
   .tune button:active { transform: translate(0, 0); box-shadow: 4px 4px 0 var(--ink); }
+  .hero .tune { position: absolute; top: 20px; right: 20px; }
 
   footer { text-align: center; color: var(--gray); font-size: 0.85rem; padding-block: 44px; z-index: 5; position: relative; }
 
@@ -446,7 +460,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .spider, .panel:nth-of-type(3n + 2), .panel:nth-of-type(3n + 3) { animation: none !important; transform: none !important; }
+    .spider, .miles-spider, .panel:nth-of-type(3n + 2), .panel:nth-of-type(3n + 3), .gallery-card:nth-child(even), .gallery-card:nth-child(odd) { animation: none !important; transform: none !important; }
     .sfx { opacity: 1; animation: none !important; transform: none !important; }
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   }
@@ -457,6 +471,9 @@
 <div id="sfx" aria-hidden="true"></div>
 <div class="web-corner web-tl" aria-hidden="true">
   <svg viewBox="0 0 120 120" preserveAspectRatio="none">
+    <g stroke="var(--red)" stroke-width="1" fill="none" stroke-opacity="0.25">
+      <path d="M30,0 Q50,8 75,22 Q100,40 115,55 Q118,70 110,85 Q95,100 75,110 Q55,105 40,95 Q30,85 22,65 Q15,45 8,25 Q4,12 0,0"/>
+    </g>
     <g stroke="rgba(0,0,0,0.14)" stroke-width="1.5" fill="none">
       <line x1="0" y1="0" x2="120" y2="0"/>
       <line x1="0" y1="0" x2="0" y2="120"/>
@@ -469,6 +486,9 @@
 </div>
 <div class="web-corner web-tr" aria-hidden="true">
   <svg viewBox="0 0 120 120" preserveAspectRatio="none">
+    <g stroke="var(--blue)" stroke-width="1" fill="none" stroke-opacity="0.25">
+      <path d="M90,0 Q70,8 45,22 Q20,40 5,55 Q2,70 10,85 Q25,100 45,110 Q65,105 80,95 Q90,85 98,65 Q105,45 112,25 Q116,12 120,0"/>
+    </g>
     <g stroke="rgba(0,0,0,0.14)" stroke-width="1.5" fill="none">
       <line x1="0" y1="0" x2="120" y2="0"/>
       <line x1="120" y1="0" x2="120" y2="120"/>
@@ -481,6 +501,9 @@
 </div>
 <div class="web-corner web-bl" aria-hidden="true">
   <svg viewBox="0 0 120 120" preserveAspectRatio="none">
+    <g stroke="var(--red)" stroke-width="1" fill="none" stroke-opacity="0.25">
+      <path d="M30,120 Q50,112 75,98 Q100,80 115,65 Q118,50 110,35 Q95,20 75,10 Q55,15 40,25 Q30,35 22,55 Q15,75 8,95 Q4,108 0,120"/>
+    </g>
     <g stroke="rgba(0,0,0,0.14)" stroke-width="1.5" fill="none">
       <line x1="0" y1="0" x2="120" y2="0"/>
       <line x1="0" y1="0" x2="0" y2="120"/>
@@ -493,6 +516,9 @@
 </div>
 <div class="web-corner web-br" aria-hidden="true">
   <svg viewBox="0 0 120 120" preserveAspectRatio="none">
+    <g stroke="var(--blue)" stroke-width="1" fill="none" stroke-opacity="0.25">
+      <path d="M90,120 Q70,112 45,98 Q20,80 5,65 Q2,50 10,35 Q25,20 45,10 Q65,15 80,25 Q90,35 98,55 Q105,75 112,95 Q116,108 120,120"/>
+    </g>
     <g stroke="rgba(0,0,0,0.14)" stroke-width="1.5" fill="none">
       <line x1="0" y1="0" x2="120" y2="0"/>
       <line x1="120" y1="0" x2="120" y2="120"/>
@@ -519,9 +545,27 @@
       <line x1="17" y1="10.5" x2="17" y2="2.5" stroke="var(--ink)" stroke-width="2" transform="rotate(270 17 17)"/>
       <line x1="17" y1="10.5" x2="17" y2="2.5" stroke="var(--ink)" stroke-width="2" transform="rotate(315 17 17)"/>
     </svg>
+    <svg class="miles-spider" viewBox="0 0 34 34" aria-hidden="true">
+      <ellipse cx="17" cy="14" rx="4.5" ry="3" fill="var(--ink)"/>
+      <circle cx="17" cy="9" r="4" fill="var(--red)" stroke="var(--ink)" stroke-width="1.5"/>
+      <circle cx="17" cy="9" r="1.5" fill="var(--yellow)"/>
+      <path d="M13 7 Q9 5 7 7 Q9 9 13 7" stroke="var(--ink)" stroke-width="1.5" fill="none"/>
+      <path d="M21 7 Q25 5 27 7 Q25 9 21 7" stroke="var(--ink)" stroke-width="1.5" fill="none"/>
+      <path d="M13 21 Q9 23 7 21 Q9 19 13 21" stroke="var(--ink)" stroke-width="1.5" fill="none"/>
+      <path d="M21 21 Q25 23 27 21 Q25 19 21 21" stroke="var(--ink)" stroke-width="1.5" fill="none"/>
+      <line x1="14" y1="11" x2="10" y2="11" stroke="var(--ink)" stroke-width="2"/>
+      <line x1="20" y1="11" x2="24" y2="11" stroke="var(--ink)" stroke-width="2"/>
+      <line x1="14" y1="17" x2="10" y2="17" stroke="var(--ink)" stroke-width="2"/>
+      <line x1="20" y1="17" x2="24" y2="17" stroke="var(--ink)" stroke-width="2"/>
+      <circle cx="12" cy="9" r="1" fill="var(--yellow)"/>
+      <circle cx="22" cy="9" r="1" fill="var(--yellow)"/>
+    </svg>
     <p class="eyebrow">He's swinging into five</p>
     <h1>Happy Birthday, <span id="heroName">Rishvik Mankkar</span>!</h1>
     <p class="lead" id="heroSub">A Miles Morales and Spider-Man fan turning 5</p>
+    <div class="tune">
+      <button type="button" id="playTune">Play birthday tune &rsaquo;</button>
+    </div>
   </section>
 
   <section class="countdown panel">
@@ -552,9 +596,6 @@
         <span id="partyLocation">123 Celebration Lane, Anytown</span>
       </div>
       <a class="directions" id="partyDirections" href="#">Get directions</a>
-      <div class="tune">
-        <button type="button" id="playTune">Play a birthday tune &rsaquo;</button>
-      </div>
     </div>
   </section>
 
@@ -592,9 +633,7 @@
     </div>
   </section>
 
-  <footer>
-    Everything you can change lives in <code>config.js</code> &mdash; names, date, time, place, photos, music. Ready for GitHub Pages &mdash; just publish this folder.
-  </footer>
+ 
 
 </div>
 
@@ -771,8 +810,18 @@
         const file = src.split("/").pop();
         fig.insertAdjacentHTML("afterbegin",
           '<div class="placeholder" aria-hidden="true">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">' +
-          '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="2"/>' +
+          '<svg viewBox="0 0 24 24" fill="none">' +
+          '<circle cx="12" cy="7" r="3" fill="var(--red)" stroke="var(--ink)" stroke-width="1.5"/>' +
+          '<ellipse cx="12" cy="12" rx="3" ry="2" fill="var(--ink)"/>' +
+          '<line x1="9" y1="7" x2="6" y2="5" stroke="var(--ink)" stroke-width="1.5"/>' +
+          '<line x1="9" y1="7" x2="6" y2="7" stroke="var(--ink)" stroke-width="1.5"/>' +
+          '<line x1="9" y1="7" x2="6" y2="9" stroke="var(--ink)" stroke-width="1.5"/>' +
+          '<line x1="15" y1="7" x2="18" y2="5" stroke="var(--ink)" stroke-width="1.5"/>' +
+          '<line x1="15" y1="7" x2="18" y2="7" stroke="var(--ink)" stroke-width="1.5"/>' +
+          '<line x1="15" y1="7" x2="18" y2="9" stroke="var(--ink)" stroke-width="1.5"/>' +
+          '<line x1="9" y1="12" x2="6" y2="14" stroke="var(--ink)" stroke-width="1.5"/>' +
+          '<line x1="15" y1="12" x2="18" y2="14" stroke="var(--ink)" stroke-width="1.5"/>' +
+          '<circle cx="12" cy="7" r="1" fill="var(--yellow)"/>' +
           '</svg>' +
           '<div>Add your photo</div>' +
           '<div style="font-size:0.68rem;margin-top:4px">assets/images/gallery/' + file + '</div>' +
