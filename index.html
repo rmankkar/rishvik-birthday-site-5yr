@@ -1043,5 +1043,10 @@
   }
 
   btn.addEventListener("click", toggleTune);
+
+  // Auto-start tune on page load (random track, always looping).
+  // Browsers may block autoplay until the first user interaction — if blocked,
+  // the button shows "Play birthday tune" and clicking it will start the tune.
+  toggleTune();
 })();
 </script>
