@@ -24,8 +24,8 @@ window.BDAY_CONFIG = {
     "assets/audio/spiderman_3.mp3"
   ],
   supabase: {
-    url: "https://YOUR_PROJECT_REF.supabase.co",   // <-- paste your Supabase project URL
-    anonKey: "YOUR_PUBLIC_ANON_KEY",                // <-- paste your Supabase public anon key
+    url: "https://fhcfzjmblenmbttiomqp.supabase.co",   // <-- paste your Supabase project URL
+    anonKey: "sb_publishable_MSWF_tVzU5AuyAXEE0bvxg_eD54-HGO",                // <-- paste your Supabase public anon key
     table: "wishes"
   }
 };
