@@ -8,7 +8,7 @@ window.BDAY_CONFIG = {
   eventDate: "2026-11-26T15:00:00",   // party date & time, local time
   eventDateLabel: "Wednesday, 26 November 2026",
   eventTime: "3:00 PM",
-  location: "123 Celebration Lane, Anytown",   // <-- replace with your party address
+  location: "Pacific Mall NSP Pitampura",   // <-- replace with your party address
   gallery: [
     "assets/images/gallery/photo1.jpg",
     "assets/images/gallery/photo2.jpg",
